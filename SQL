@@ -1,0 +1,13 @@
+mysql -u root -p --protocol=tcp -p
+# Enter password: examly
+
+CREATE DATABASE appdb;
+USE appdb;
+
+CREATE TABLE orders (
+    orderId INT AUTO_INCREMENT PRIMARY KEY,
+    customerName VARCHAR(255) NOT NULL,
+    orderDate VARCHAR(50) NOT NULL,
+    totalAmount DECIMAL(10, 2) NOT NULL,
+    orderStatus VARCHAR(50) NOT NULL
+);
