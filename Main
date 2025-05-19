@@ -1,0 +1,64 @@
+package com.example;
+
+import com.example.entity.Order;
+import com.example.service.OrderService;
+import com.example.service.OrderServiceImpl;
+
+import java.util.*;
+
+public class MainModule {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        OrderService orderService = new OrderServiceImpl();
+        int choice;
+
+        do {
+            System.out.println("\nOrder Management System");
+            System.out.println("1. Add Order");
+            System.out.println("2. Delete Order");
+            System.out.println("3. View All Orders");
+            System.out.println("4. Exit");
+            System.out.print("Enter choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1 -> addOrder(orderService, scanner);
+                case 2 -> deleteOrder(orderService, scanner);
+                case 3 -> viewAllOrders(orderService);
+                case 4 -> System.out.println("Exiting...");
+                default -> System.out.println("Invalid choice.");
+            }
+        } while (choice != 4);
+    }
+
+    public static void addOrder(OrderService orderService, Scanner scanner) {
+        scanner.nextLine(); // Consume newline
+        System.out.print("Customer Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Order Date (YYYY-MM-DD): ");
+        String date = scanner.nextLine();
+        System.out.print("Total Amount: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline
+        System.out.print("Order Status: ");
+        String status = scanner.nextLine();
+
+        Order order = new Order(0, name, date, amount, status);
+        System.out.println(orderService.addOrder(order));
+    }
+
+    public static void deleteOrder(OrderService orderService, Scanner scanner) {
+        System.out.print("Enter Order ID to delete: ");
+        int id = scanner.nextInt();
+        System.out.println(orderService.deleteOrder(id));
+    }
+
+    public static void viewAllOrders(OrderService orderService) {
+        List<Order> orders = orderService.getAllOrders();
+        if (orders.isEmpty()) {
+            System.out.println("No orders found.");
+        } else {
+            orders.forEach(System.out::println);
+        }
+    }
+}
