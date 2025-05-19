@@ -1,0 +1,36 @@
+package com.example;
+
+import org.junit.jupiter.api.Test;
+import java.io.File;
+import java.lang.reflect.Method;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class AppTest {
+
+    @Test
+    void test_Util_File_Exist() {
+        File file = new File("src/main/java/com/example/util/DBConnectionUtil.java");
+        assertTrue(file.exists());
+    }
+
+    @Test
+    void test_Util_Folder_Exist() {
+        File folder = new File("src/main/java/com/example/util/");
+        assertTrue(folder.exists());
+    }
+
+    @Test
+    void test_Check_Method_Exist() {
+        try {
+            Class<?> clazz = Class.forName("com.example.service.OrderServiceImpl");
+            Method add = clazz.getDeclaredMethod("addOrder", com.example.entity.Order.class);
+            Method delete = clazz.getDeclaredMethod("deleteOrder", int.class);
+            Method getAll = clazz.getDeclaredMethod("getAllOrders");
+            assertNotNull(add);
+            assertNotNull(delete);
+            assertNotNull(getAll);
+        } catch (Exception e) {
+            fail("Method missing: " + e.getMessage());
+        }
+    }
+}
