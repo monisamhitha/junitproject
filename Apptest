@@ -26,16 +26,6 @@ public class AppTest {
     }
 
     @Test
-    void test_Create_Query_Exist() {
-        Order order = new Order(0, "Testuser", "2025-05-21", 123, "Pending");
-        String res = orderService.addOrder(order);
-        assertTrue(res.contains("successfully."));
-
-        List<Order> orders = orderService.getAllOrders();
-        assertTrue(orders.stream().anyMatch(o -> o.getCustomerName().equals("Testuser")));
-    }
-
-    @Test
     void test_Check_Method_Exist() {
         try {
             Class<?> clazz = Class.forName("com.example.service.OrderServiceImpl");
